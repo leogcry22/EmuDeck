@@ -10,10 +10,8 @@ report_error() {
 
 trap report_error ERR
 
-EMUDECK_GITHUB_URL="https://ghproxy.com/https://api.github.com/repos/EmuDeck/emudeck-electron/releases/latest"
-EMUDECK_URL="$(curl -s ${EMUDECK_GITHUB_URL} | grep -E 'browser_download_url.*AppImage' | cut -d '"' -f 4)"
 
 mkdir -p ~/Applications
-curl -L "${EMUDECK_URL}" -o ~/Applications/EmuDeck.AppImage 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading EmuDeck" --width 600 --auto-close --no-cancel 2>/dev/null
+curl -L "https://github.com/EmuDeck/emudeck-electron/releases/download/v2.1.4/EmuDeck-2.1.4.AppImage" -o ~/Applications/EmuDeck.AppImage 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading EmuDeck" --width 600 --auto-close --no-cancel 2>/dev/null
 chmod +x ~/Applications/EmuDeck.AppImage
 ~/Applications/EmuDeck.AppImage
